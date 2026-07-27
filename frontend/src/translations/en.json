@@ -1,0 +1,17 @@
+{
+  "welcomeMessage": "Welcome!!",
+
+  "button": {
+    "submit": "Submit",
+    "returnHome": "Return to home"
+  },
+
+  "page": {
+    "loading": "Loading...",
+    "notFound": "Page not found"
+  },
+
+  "placeholder": {
+    "enterName": "Please enter your name"
+  }
+}
