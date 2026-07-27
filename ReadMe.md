@@ -33,3 +33,11 @@ A minimal full-stack boilerplate with the common tooling already configured.
 - 404 page
 - Environment variable support
 - VS Code friendly configuration
+
+## Recommended VS Code Extensions
+
+For the best development experience, install the following extensions:
+
+- **ESLint** (`dbaeumer.vscode-eslint`) – Displays lint errors and auto-fixes supported issues.
+- **Prettier - Code formatter** (`esbenp.prettier-vscode`) – Formats code consistently on save.
+- **Code Spell Checker** (`streetsidesoftware.code-spell-checker`) – Helps catch spelling mistakes in code, comments, and translation keys.
