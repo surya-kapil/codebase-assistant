@@ -11,3 +11,58 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+enum RepositoryStatus {
+  INDEXING
+  READY
+  FAILED
+}
+
+model Repository {
+  id            String             @id @default(cuid())
+  name          String
+  url           String             @unique
+  defaultBranch String
+  indexedAt     DateTime           @default(now())
+  status        RepositoryStatus   @default(INDEXING)
+
+  chunks        RepositoryChunk[]
+  workspaces    WorkspaceRepository[]
+}
+
+model User {
+  id            String                @id @default(cuid())
+  username      String
+  email         String                @unique
+  passwordHash  String
+
+  workspaces    WorkspaceRepository[]
+}
+
+model WorkspaceRepository {
+  id            String      @id @default(cuid())
+  userId        String
+  repositoryId  String
+  addedAt       DateTime    @default(now())
+
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  repository    Repository   @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, repositoryId])
+}
+
+model RepositoryChunk {
+  id            String      @id @default(cuid())
+  repositoryId  String
+  filePath      String
+  chunkIndex    Int
+  content       String
+  embedding     Unsupported("vector")
+  startLine     Int
+  endLine       Int
+
+  repository    Repository  @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  @@index([repositoryId])
+}
