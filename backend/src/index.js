@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { cloneRepository } from "./services/git.services.js";
 
 dotenv.config();
 
@@ -17,9 +18,9 @@ app.use(
 );
 
 app.post("/", async (req, res) => {
-  const { owner } = req.body;
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  res.json({ welcomeMessage: `This server welcomes ${owner}` });
+  const { owner: repositoryLink } = req.body;
+  await cloneRepository({ repositoryLink });
+  res.json({ welcomeMessage: `Cloned Repo` });
 });
 
 app.listen(BACKEND_PORT, () => {
