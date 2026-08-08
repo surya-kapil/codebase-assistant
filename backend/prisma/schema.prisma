@@ -33,9 +33,10 @@ model Repository {
 
 model User {
   id            String                @id @default(cuid())
-  username      String
+  username      String                @unique
   email         String                @unique
   passwordHash  String
+  refreshToken  String?
 
   workspaces    WorkspaceRepository[]
 }
