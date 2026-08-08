@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { cloneRepository } from "./services/git.services.js";
+import authRoutes from "./routes/auth.routes.js";
+import errorHandler from "./middlewares/errorHandler.middlewares.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -10,6 +12,7 @@ const BACKEND_PORT = process.env.BACKEND_PORT;
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -17,11 +20,9 @@ app.use(
   })
 );
 
-app.post("/", async (req, res) => {
-  const { owner: repositoryLink } = req.body;
-  await cloneRepository({ repositoryLink });
-  res.json({ welcomeMessage: `Cloned Repo` });
-});
+app.use("/api/v1/auth", authRoutes);
+
+app.use(errorHandler);
 
 app.listen(BACKEND_PORT, () => {
   console.log(`Server listening on ${BACKEND_PORT}`);
