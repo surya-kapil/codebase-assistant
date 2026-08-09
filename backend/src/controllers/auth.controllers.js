@@ -3,17 +3,10 @@ import {
   generateAccessAndRefreshToken,
   hashPassword,
 } from "../services/auth.services.js";
-import { cloneRepository } from "../services/git.services.js";
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { prisma } from "../clients/prisma.client.js";
 import { ApiResponse } from "../utils/apiResponse.js";
-
-export const createRepository = asyncHandler(async (req, res) => {
-  const { owner: repositoryLink } = req.body;
-  await cloneRepository({ repositoryLink });
-  res.json({ welcomeMessage: `Cloned Repo` });
-});
 
 export const register = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;

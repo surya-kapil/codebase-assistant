@@ -10,7 +10,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
     throw new ApiError(401, "Unauthorized Request");
   }
 
-  const { id } = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);
+  const { id } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
   const user = await prisma.user.findFirst({
     where: {
