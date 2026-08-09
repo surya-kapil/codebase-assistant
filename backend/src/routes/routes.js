@@ -1,5 +1,7 @@
 const ROUTES = {
-  CLONE: "/clone",
+  REPOSITORY: {
+    CLONE: "/clone",
+  },
   AUTH: {
     REGISTER: "/register",
     LOGIN: "/login",

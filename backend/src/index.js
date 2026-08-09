@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
+import repositoryRoutes from "./routes/repository.routes.js";
 import errorHandler from "./middlewares/errorHandler.middlewares.js";
 import cookieParser from "cookie-parser";
 
@@ -21,6 +22,7 @@ app.use(
 );
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/repository", repositoryRoutes);
 
 app.use(errorHandler);
 
