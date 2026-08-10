@@ -53,13 +53,11 @@ export const login = asyncHandler(async (req, res) => {
   }
 
   const isPasswordSame = await comparePassword(user?.passwordHash, password);
-
   if (!isPasswordSame) {
     throw new ApiError(401, "Wrong Password");
   }
 
   const { accessToken, refreshToken } = generateAccessAndRefreshToken(user.id);
-
   await prisma.user.update({
     where: {
       id: user.id,
