@@ -1,6 +1,7 @@
 const ROUTES = {
   REPOSITORY: {
     CLONE: "/clone",
+    QUERY: "/query",
   },
   AUTH: {
     REGISTER: "/register",

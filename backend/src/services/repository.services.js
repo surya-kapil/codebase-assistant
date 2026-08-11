@@ -117,13 +117,20 @@ export const addRepositoryToWorkspace = async ({ userId, repositoryId }) => {
 };
 
 export const indexRepository = async ({ chunks, repositoryId }) => {
-  const contentArray = chunks.map(chunk => chunk.content);
+  const contentArray = chunks.map(
+    chunk => `
+            File: ${chunk.filePath}
+            Function: ${chunk.name ?? "unknown"}
+
+            ${chunk.content}
+          `
+  );
 
   const embeddings = await generateEmbeddings(contentArray);
 
-  await Promise.all([
+  await Promise.all(
     chunks.map((chunk, index) => {
-      addRepositoryChunk({
+      return addRepositoryChunk({
         repositoryId,
         filePath: chunk.filePath,
         chunkIndex: index,
@@ -132,6 +139,33 @@ export const indexRepository = async ({ chunks, repositoryId }) => {
         startLine: chunk.startLine,
         endLine: chunk.endLine,
       });
-    }),
-  ]);
+    })
+  );
+};
+
+export const checkWorkspace = async ({ userId, repositoryId }) => {
+  const data = await prisma.workspaceRepository.findFirst({
+    where: {
+      userId,
+      repositoryId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return data ? true : false;
+};
+
+export const findRelevantChunks = async ({ embeddedQuery, repositoryId }) => {
+  const vector = `[${embeddedQuery[0].join(",")}]`;
+  const chunks = await prisma.$queryRaw`
+  SELECT *
+  FROM "RepositoryChunk"
+  WHERE "repositoryId" = ${repositoryId}
+  ORDER BY "embedding" <=> ${vector}::vector
+  LIMIT ${REPOSITORIES.DEFAULT_CHUNK_SIZE}
+`;
+
+  return chunks;
 };
