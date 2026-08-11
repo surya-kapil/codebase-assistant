@@ -18,6 +18,7 @@ export const LANGUAGE_PARSERS = {
 
 export const REPOSITORIES = {
   DEFAULT_PATH: path.join(process.cwd(), "clonedRepos"),
+  DEFAULT_CHUNK_SIZE: 8,
 };
 
 export const IGNORED_DIRECTORIES = new Set([
