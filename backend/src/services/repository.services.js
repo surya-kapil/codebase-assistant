@@ -169,3 +169,16 @@ export const findRelevantChunks = async ({ embeddedQuery, repositoryId }) => {
 
   return chunks;
 };
+
+export const fetchWorkspaceRepositories = async ({ userId }) => {
+  const repositories = await prisma.workspaceRepository.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      repositoryId: true,
+    },
+  });
+
+  return repositories.map(repository => repository.repositoryId);
+};

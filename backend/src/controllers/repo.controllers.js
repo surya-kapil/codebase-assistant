@@ -3,6 +3,7 @@ import {
   addRepositoryToWorkspace,
   checkWorkspace,
   cloneRepository,
+  fetchWorkspaceRepositories,
   findRelevantChunks,
   getOrCreateRepository,
   indexRepository,
@@ -66,4 +67,12 @@ export const queryRepository = asyncHandler(async (req, res) => {
   const response = await generate(prompt);
 
   res.json(new ApiResponse(200, { response }, "Well done"));
+});
+
+export const fetchRepository = asyncHandler(async (req, res) => {
+  const { id: userId } = req.user;
+
+  const repositories = await fetchWorkspaceRepositories({ userId });
+
+  res.send(new ApiResponse(200, { repositories }, "Fetched Repositories"));
 });
