@@ -1,3 +1,7 @@
 export const QUERY_KEYS = {
-  TEST: "TEST_KEY",
+  REGISTER: "register",
+};
+
+export const regex = {
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
 };

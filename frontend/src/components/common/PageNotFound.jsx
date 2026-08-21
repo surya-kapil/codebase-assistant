@@ -10,7 +10,7 @@ const PageNotFound = () => {
       <h1 className="text-4xl font-bold text-gray-900">{t("page.notFound")}</h1>
 
       <NavLink
-        to={ROUTES.HOME}
+        to={ROUTES.DASHBOARD}
         className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
       >
         {t("button.returnHome")}

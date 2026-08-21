@@ -1,9 +1,9 @@
 {
-  "welcomeMessage": "Welcome!!",
-
   "button": {
-    "submit": "Submit",
-    "returnHome": "Return to home"
+    "login": "Sign In",
+    "register": "Sign Up",
+    "loggingIn": "Signing In...",
+    "registering": "Signing Up..."
   },
 
   "page": {
@@ -12,6 +12,29 @@
   },
 
   "placeholder": {
-    "enterName": "Please enter your name"
+    "userOrEmail": "Enter username or email",
+    "password": "Enter password",
+    "username": "Enter your username",
+    "email": "Enter your email"
+  },
+
+  "heading": {
+    "login": "Sign In to your account",
+    "register": "Sign Up your account"
+  },
+
+  "account": {
+    "new": "Don't have an account? ",
+    "old": "Already have an account? "
+  },
+
+  "registration": {
+    "success": "Registration successful",
+    "failure": "Failed to register"
+  },
+
+  "login": {
+    "success": "Login Successful",
+    "failure": "Failed to login"
   }
 }
