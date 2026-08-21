@@ -1,5 +1,8 @@
 const ROUTES = {
-  HOME: "/",
+  ROOT: "/",
+  DASHBOARD: "/dashboard",
+  LOGIN: "/login",
+  REGISTER: "/register",
 };
 
 export default ROUTES;
