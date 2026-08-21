@@ -1,5 +1,5 @@
 export const QUERY_KEYS = {
-  REGISTER: "register",
+  AUTH: "auth",
 };
 
 export const regex = {

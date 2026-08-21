@@ -10,15 +10,19 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
     throw new ApiError(401, "Unauthorized Request");
   }
 
-  const { id } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  let payload;
+
+  try {
+    payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  } catch {
+    throw new ApiError(401, "Jwt expired");
+  }
+
+  const { id } = payload;
 
   const user = await prisma.user.findFirst({
-    where: {
-      id,
-    },
-    select: {
-      id: true,
-    },
+    where: { id },
+    select: { id: true },
   });
 
   if (!user) {

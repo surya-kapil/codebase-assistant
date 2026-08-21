@@ -17,7 +17,7 @@ const useLogin = () => {
     },
 
     onError: () => {
-      displayToastr({ isSuccess: false, message: t("login.failure") });
+      displayToastr({ isSuccess: false, message: t("login.failed") });
     },
   });
 };

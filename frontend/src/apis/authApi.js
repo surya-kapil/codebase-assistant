@@ -13,3 +13,14 @@ export const register = async ({ username, email, password }) => {
 export const login = async requestObject => {
   await axios.post(API_ROUTES.AUTH.LOGIN, filterNullishValues(requestObject));
 };
+
+export const checkMe = async () => {
+  const {
+    data: { userId },
+  } = await axios.post(API_ROUTES.AUTH.ME);
+  return userId;
+};
+
+export const logout = async () => {
+  await axios.post(API_ROUTES.AUTH.LOGOUT);
+};
