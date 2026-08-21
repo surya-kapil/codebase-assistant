@@ -30,11 +30,19 @@
 
   "registration": {
     "success": "Registration successful",
-    "failure": "Failed to register"
+    "failed": "Failed to register"
   },
 
   "login": {
     "success": "Login Successful",
-    "failure": "Failed to login"
+    "failed": "Failed to login"
+  },
+
+  "authentication": {
+    "sessionExpired": "Session expired"
+  },
+
+  "logout": {
+    "successful": "Successfully logged out"
   }
 }

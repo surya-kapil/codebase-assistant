@@ -15,7 +15,7 @@ export const useRegister = () => {
       displayToastr({ isSuccess: true, message: t("registration.success") });
     },
     onError: () => {
-      displayToastr({ isSuccess: false, message: t("registration.failure") });
+      displayToastr({ isSuccess: false, message: t("registration.failed") });
     },
   });
 };

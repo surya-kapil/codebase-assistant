@@ -18,6 +18,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [FRONTEND_PATH],
+    credentials: true,
   })
 );
 
