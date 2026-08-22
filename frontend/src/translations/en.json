@@ -3,7 +3,9 @@
     "login": "Sign In",
     "register": "Sign Up",
     "loggingIn": "Signing In...",
-    "registering": "Signing Up..."
+    "registering": "Signing Up...",
+    "add": "Add",
+    "addingRepository": "Adding Repository"
   },
 
   "page": {
@@ -44,5 +46,12 @@
 
   "logout": {
     "successful": "Successfully logged out"
+  },
+
+  "repository": {
+    "add": {
+      "success": "Repository added successfully",
+      "failed": "Failed to add repository"
+    }
   }
 }

@@ -73,6 +73,15 @@ export const fetchRepository = asyncHandler(async (req, res) => {
   const { id: userId } = req.user;
 
   const repositories = await fetchWorkspaceRepositories({ userId });
+  const transformedRepositories = repositories.map(repoObject => {
+    return { id: repoObject.repository.id, name: repoObject.repository.name };
+  });
 
-  res.send(new ApiResponse(200, { repositories }, "Fetched Repositories"));
+  res.send(
+    new ApiResponse(
+      200,
+      { repositories: transformedRepositories },
+      "Fetched Repositories"
+    )
+  );
 });

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router";
-import useAuth from "@/hooks/reactQuery/useAuth";
+import useAuth from "@/hooks/reactQuery/auth/useAuth";
 import PageLoader from "./common/PageLoader";
 import displayToastr from "@/utils/displayToastr";
 

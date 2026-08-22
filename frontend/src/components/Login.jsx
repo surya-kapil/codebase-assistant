@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import useLogin from "@/hooks/reactQuery/useLogin";
+import useLogin from "@/hooks/reactQuery/auth/useLogin";
 import { regex } from "@/constants";
 
 const Login = () => {

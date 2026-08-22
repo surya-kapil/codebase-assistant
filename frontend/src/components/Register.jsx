@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useRegister } from "@/hooks/reactQuery/useRegister";
+import { useRegister } from "@/hooks/reactQuery/auth/useRegister";
 
 const Register = () => {
   const { t } = useTranslation();
