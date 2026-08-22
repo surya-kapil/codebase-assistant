@@ -176,9 +176,14 @@ export const fetchWorkspaceRepositories = async ({ userId }) => {
       userId,
     },
     select: {
-      repositoryId: true,
+      repository: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
 
-  return repositories.map(repository => repository.repositoryId);
+  return repositories;
 };
