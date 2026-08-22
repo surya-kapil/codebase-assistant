@@ -1,6 +1,3 @@
-import i18n from "@/common/i18n";
-import useAuthStore from "@/stores/useAuthStore";
-import displayToastr from "@/utils/displayToastr";
 import axios from "axios";
 
 const responseInterceptors = () => {
@@ -8,17 +5,8 @@ const responseInterceptors = () => {
     response => response.data,
 
     error => {
-      if (error.response?.status === 401) {
-        displayToastr({
-          isSuccess: false,
-          message: i18n.t("authentication.sessionExpired"),
-          customId: "session-expired",
-        });
-
-        useAuthStore.getState().logout();
-      }
-
-      return Promise.reject(error);
+      if (error.response?.status === 401) window.location.href = "/login";
+      Promise.reject(error);
     }
   );
 };
