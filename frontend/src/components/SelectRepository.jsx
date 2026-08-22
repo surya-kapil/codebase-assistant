@@ -6,9 +6,19 @@ const SelectRepository = ({ setSelectedRepository }) => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <h1>{t("heading.selectRepository")}</h1>
-      <select onChange={event => setSelectedRepository(event.target.value)}>
+    <div className="max-w-md">
+      <label
+        htmlFor="repository"
+        className="mb-2 block text-sm font-medium text-gray-900"
+      >
+        {t("heading.selectRepository")}
+      </label>
+
+      <select
+        id="repository"
+        onChange={event => setSelectedRepository(event.target.value)}
+        className="w-full cursor-pointer rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-700 shadow-sm outline-none transition hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+      >
         <option value="">{t("option.selectRepository")}</option>
 
         {repositories.map(repository => (
@@ -17,7 +27,7 @@ const SelectRepository = ({ setSelectedRepository }) => {
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
