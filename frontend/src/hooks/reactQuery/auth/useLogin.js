@@ -1,5 +1,4 @@
 import { login } from "@/apis/authApi";
-import useAuthStore from "@/stores/useAuthStore";
 import displayToastr from "@/utils/displayToastr";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -15,7 +14,6 @@ const useLogin = () => {
     onSuccess: () => {
       displayToastr({ isSuccess: true, message: t("login.success") });
       navigate("/dashboard");
-      useAuthStore.getState().login();
     },
 
     onError: () => {
