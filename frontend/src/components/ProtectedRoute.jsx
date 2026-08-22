@@ -1,26 +1,17 @@
-import { useEffect } from "react";
-import { Navigate, Outlet } from "react-router";
 import useAuth from "@/hooks/reactQuery/auth/useAuth";
+import useAuthStore from "@/stores/useAuthStore";
+import { Navigate, Outlet } from "react-router";
 import PageLoader from "./common/PageLoader";
-import displayToastr from "@/utils/displayToastr";
 
 const ProtectedRoute = () => {
-  const { isLoading, isError } = useAuth();
-
-  useEffect(() => {
-    if (isError) {
-      displayToastr({
-        isSuccess: false,
-        message: "Session expired",
-      });
-    }
-  }, [isError]);
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  const { isLoading } = useAuth();
 
   if (isLoading) {
     return <PageLoader />;
   }
 
-  if (isError) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 

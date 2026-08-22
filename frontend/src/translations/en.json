@@ -5,7 +5,9 @@
     "loggingIn": "Signing In...",
     "registering": "Signing Up...",
     "add": "Add",
-    "addingRepository": "Adding Repository"
+    "addingRepository": "Adding Repository",
+    "ask": "Ask",
+    "cancel": "Cancel"
   },
 
   "page": {
@@ -17,12 +19,18 @@
     "userOrEmail": "Enter username or email",
     "password": "Enter password",
     "username": "Enter your username",
-    "email": "Enter your email"
+    "email": "Enter your email",
+    "query": "Ask a question about your codebase...",
+    "response": "Your response will appear here...",
+    "repositoryLink": "https://github.com/username/repository"
   },
 
   "heading": {
     "login": "Sign In to your account",
-    "register": "Sign Up your account"
+    "register": "Sign Up your account",
+    "selectRepository": "Select Repository",
+    "queryRepository": "Ask About Your Repository",
+    "addRepository": "Add Repository"
   },
 
   "account": {
@@ -53,5 +61,13 @@
       "success": "Repository added successfully",
       "failed": "Failed to add repository"
     }
+  },
+
+  "description": {
+    "queryRepository": "Ask questions about your codebase and get answers based on the repository.",
+    "enterGithubLink": "Enter the GitHub repository URL"
+  },
+  "option": {
+    "selectRepository": "Choose a repository"
   }
 }
