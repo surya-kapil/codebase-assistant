@@ -14,5 +14,4 @@ router.use(verifyJWT);
 router.route(ROUTES.REPOSITORY.CLONE).post(createRepository);
 router.route(ROUTES.REPOSITORY.QUERY).post(queryRepository);
 router.route(ROUTES.REPOSITORY.FETCH).get(fetchRepository);
-
 export default router;
