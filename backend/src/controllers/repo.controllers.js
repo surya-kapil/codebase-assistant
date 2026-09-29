@@ -1,42 +1,17 @@
+import { addFile } from "../clients/bullMQ.client.js";
 import { generate, generateEmbeddings } from "../clients/ollama.client.js";
 import {
   addRepositoryToWorkspace,
   checkWorkspace,
-  cloneRepository,
   fetchWorkspaceRepositories,
   findRelevantChunks,
   getOrCreateRepository,
-  indexRepository,
 } from "../services/repository.services.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
-import { extractChunks } from "../utils/files.utils.js";
 import { codeAssistantPrompt } from "../utils/prompts.utils.js";
-
-export const createRepository = asyncHandler(async (req, res) => {
-  const { repositoryLink } = req.body;
-  const { id: userId } = req.user;
-
-  const { repositoryId, isNew } = await getOrCreateRepository({
-    repositoryLink,
-  });
-
-  await addRepositoryToWorkspace({ userId, repositoryId });
-
-  if (!isNew) {
-    res.json(new ApiResponse(200, { repositoryId }, "Done"));
-    return;
-  }
-
-  const filePath = await cloneRepository({ repositoryLink });
-  const chunks = await extractChunks({ filePath });
-
-  await indexRepository({ chunks, repositoryId });
-
-  res.json(new ApiResponse(201, { repositoryId }, "Repository Created"));
-});
 
 export const queryRepository = asyncHandler(async (req, res) => {
   const { query, repositoryId } = req.body;
@@ -84,4 +59,26 @@ export const fetchRepository = asyncHandler(async (req, res) => {
       "Fetched Repositories"
     )
   );
+});
+
+export const createRepository = asyncHandler(async (req, res) => {
+  const { repositoryLink } = req.body;
+  const { id: userId } = req.user;
+
+  const { repositoryId, isNew } = await getOrCreateRepository({
+    repositoryLink,
+  });
+
+  await addRepositoryToWorkspace({ userId, repositoryId });
+
+  if (!isNew) {
+    res.json(new ApiResponse(200, { repositoryId }, "Done"));
+    return;
+  }
+
+  await addFile({ repositoryId, repositoryLink });
+
+  res
+    .status(202)
+    .json(new ApiResponse(202, null, "Repository indexing task queued"));
 });
