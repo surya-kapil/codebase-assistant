@@ -58,9 +58,11 @@
 
   "repository": {
     "add": {
-      "success": "Repository added successfully",
+      "success": "Repository will be added shortly",
       "failed": "Failed to add repository"
-    }
+    },
+    "notFound": "Repository not found.",
+    "queued": "Repository will be added shortly."
   },
 
   "description": {
@@ -69,5 +71,25 @@
   },
   "option": {
     "selectRepository": "Choose a repository"
+  },
+
+  "fields": {
+    "incomplete": "Please fill in all required fields."
+  },
+  "user": {
+    "notFound": "User not found.",
+    "registered": "Registration successful."
+  },
+  "password": {
+    "incorrect": "Incorrect password."
+  },
+
+  "error": {
+    "generic": "Something went wrong"
+  },
+
+  "auth": {
+    "loginSuccessful": "Login successful.",
+    "logoutSuccessful": "Logout successful."
   }
 }
