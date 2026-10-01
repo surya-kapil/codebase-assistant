@@ -18,7 +18,11 @@ export const queryRepository = asyncHandler(async (req, res) => {
   const { id: userId } = req.user;
 
   if (!query || !repositoryId) {
-    throw new ApiError(401, "Missing query or repositoryId");
+    throw new ApiError(
+      401,
+      "Missing query or repositoryId",
+      "INCOMPLETE_FIELDS"
+    );
   }
 
   const isRepositoryInWorkspace = await checkWorkspace({
@@ -27,7 +31,7 @@ export const queryRepository = asyncHandler(async (req, res) => {
   });
 
   if (!isRepositoryInWorkspace) {
-    throw new ApiError(404, "Repository Not Found");
+    throw new ApiError(404, "Repository Not Found", "REPOSITORY_NOT_FOUND");
   }
 
   const embeddedQuery = await generateEmbeddings(query);
@@ -41,7 +45,7 @@ export const queryRepository = asyncHandler(async (req, res) => {
 
   const response = await generate(prompt);
 
-  res.json(new ApiResponse(200, { response }, "Well done"));
+  res.json(new ApiResponse(200, { response }, "Query Successful"));
 });
 
 export const fetchRepository = asyncHandler(async (req, res) => {
@@ -65,14 +69,28 @@ export const createRepository = asyncHandler(async (req, res) => {
   const { repositoryLink } = req.body;
   const { id: userId } = req.user;
 
-  const { repositoryId, isNew } = await getOrCreateRepository({
-    repositoryLink,
-  });
+  let repositoryId, isNew;
+  try {
+    const response = await getOrCreateRepository({
+      repositoryLink,
+    });
+    repositoryId = response.repositoryId;
+    isNew = response.isNew;
+  } catch {
+    throw new ApiError(404, "Repository Not Found", "REPOSITORY_NOT_FOUND");
+  }
 
   await addRepositoryToWorkspace({ userId, repositoryId });
 
   if (!isNew) {
-    res.json(new ApiResponse(200, { repositoryId }, "Done"));
+    res.json(
+      new ApiResponse(
+        200,
+        { repositoryId },
+        "Repository Added",
+        "REPOSITORY_QUEUED"
+      )
+    );
     return;
   }
 
@@ -80,5 +98,12 @@ export const createRepository = asyncHandler(async (req, res) => {
 
   res
     .status(202)
-    .json(new ApiResponse(202, null, "Repository indexing task queued"));
+    .json(
+      new ApiResponse(
+        202,
+        null,
+        "Repository indexing task queued",
+        "REPOSITORY_QUEUED"
+      )
+    );
 });
